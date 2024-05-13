@@ -1,0 +1,18 @@
+<ion-content>
+  <div class="body">
+    <div class="title">
+      <h1 style="font-size: 2em;">E-NILAM</h1>
+      <ion-icon style="font-size: 7em;" name="person-circle-outline"></ion-icon>
+    </div>  
+    <form class="formContainer" [formGroup]="loginForm" (ngSubmit)="login()">
+      <span>
+        <input placeholder="email" type="email" formControlName="email">
+        <input placeholder="password" type="password" formControlName="password">
+        <button expand="full" type="submit" [disabled]="loginForm.invalid">Login</button>
+      </span>
+      
+    </form>
+
+  </div>
+</ion-content>
+
