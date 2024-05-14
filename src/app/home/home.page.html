@@ -13,6 +13,8 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+<ion-list>
   <div class="listOfItems">
     <h1></h1>
     <span [routerLink]="['/tabs/item-details',item.itemid]" *ngFor="let item of items">
@@ -29,4 +31,7 @@
     </span>
     
   </div>
+</ion-list>
+  
+
 </ion-content>

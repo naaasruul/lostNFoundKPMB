@@ -3,7 +3,6 @@ import{ Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-item-details',
   templateUrl: './item-details.page.html',
@@ -21,12 +20,11 @@ export class ItemDetailsPage implements OnInit {
     ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       let itemId = params.get('itemId')
-
-     // Fetch item details from Firestore using itemId
-     this.firestore.collection('items').doc(`${itemId}`).valueChanges().subscribe(
+      // Fetch item details from Firestore using itemId
+      this.firestore.collection('items').doc(`${itemId}`).valueChanges().subscribe(
       (data: any) => {
         this.itemDetails = data;
-        
+        console.log(this.itemDetails)
       },
       (error) => {
         console.error('Error fetching item details:', error);
