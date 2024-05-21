@@ -1,3 +1,5 @@
+<!-- item-details.page.html -->
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>item-details</ion-title>
@@ -5,15 +7,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="itemContainer">
+  <!-- Display item details if itemDetails is not null -->
+  <div class="itemContainer" *ngIf="itemDetails">
     <div class="itemImg">
-      <img src="" alt="">
+      <!-- Display item image or a placeholder if not available -->
+      <img [src]="itemDetails.itemPic || 'https://ionicframework.com/docs/img/demos/card-media.png'" alt="{{itemDetails.itemName}}">
     </div>
     <div class="itemDetails">
+      <!-- Display item name and location -->
       <h1>{{itemDetails.itemName}}</h1>
       <h4>{{itemDetails.itemLocLost}}</h4>
+      <p>{{itemDetails.itemDesc}}</p>
     </div>
   </div>
 </ion-content>
-
-<!-- sekarang tengah buat display details barang ikut id barang -->

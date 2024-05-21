@@ -16,7 +16,7 @@ const routes: Routes = [
         loadChildren: () => import('./report-lost/report-lost.module').then( m => m.ReportLostPageModule)
       },
       {
-        path: 'item-details/:itemId',
+        path: 'item-details/:id', // Route for item details with an ID parameter
         loadChildren: () => import('./item-details/item-details.module').then( m => m.ItemDetailsPageModule)
       },
     ]

@@ -1,18 +1,37 @@
-<ion-content>
-  <div class="body">
-    <div class="title">
-      <h1 style="font-size: 2em;">E-NILAM</h1>
-      <ion-icon style="font-size: 7em;" name="person-circle-outline"></ion-icon>
-    </div>  
-    <form class="formContainer" [formGroup]="loginForm" (ngSubmit)="login()">
-      <span>
-        <input placeholder="email" type="email" formControlName="email">
-        <input placeholder="password" type="password" formControlName="password">
-        <button expand="full" type="submit" [disabled]="loginForm.invalid">Login</button>
-      </span>
-      
-    </form>
+<!-- login.page.html -->
 
-  </div>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>LostNfound</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid class="ion-text-center ion-padding">
+    <ion-row>
+      <ion-col>
+        <ion-icon name="person-circle-outline" size="large"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h1>LostNfound</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <ion-button expand="full" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-

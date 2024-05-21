@@ -1,36 +1,46 @@
+<!-- report-lost.page.html -->
+
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>reportLost</ion-title>
+    <ion-title>Report Lost</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="false">
-
-  <h1>Report lost items</h1>
-  
-  <div>
-    <ion-list>
-      <ion-list>
-        <ion-item>
-          <ion-input [(ngModel)]="item.itemName" name="itemName" label="Item name" placeholder="Item name" required="true"></ion-input>
-        </ion-item>
-  
-  
-        <ion-item>
-          <ion-input [(ngModel)]="item.itemLocLost" name="locLost" label="Location of lost" placeholder="Hall B.." required="true"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-input [(ngModel)]="item.itemLostDate" name="dateLost" label="Date of lost" type="date" placeholder="DD/MM/YYYY" required="true"></ion-input>
-        </ion-item>
-  
-        <ion-item>
-          <ion-textarea [(ngModel)]="item.itemDesc" name="itemDesc" label="item descriptions" placeholder="describe the items.." required="true"></ion-textarea>
-        </ion-item>
-      </ion-list>
-      <ion-button (click)="registeritem()" shape="round">Submit</ion-button>
-    </ion-list>
-
-  </div>
-  
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+        <h1 class="ion-text-center">Report Lost Items</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <form>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Item Name</ion-label>
+              <ion-input [(ngModel)]="item.itemName" name="itemName" placeholder="Item name" required="true"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Location of Loss</ion-label>
+              <ion-input [(ngModel)]="item.itemLocLost" name="locLost" placeholder="Hall B.." required="true"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Date of Loss</ion-label>
+              <ion-input [(ngModel)]="item.itemLostDate" name="dateLost" type="date" placeholder="DD/MM/YYYY" required="true"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Item Description</ion-label>
+              <ion-textarea [(ngModel)]="item.itemDesc" name="itemDesc" placeholder="Describe the item..." required="true"></ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-label>Upload Item Picture</ion-label>
+              <input type="file" (change)="onFileSelected($event)" />
+            </ion-item>
+          </ion-list>
+          <ion-button expand="full" shape="round" (click)="registeritem()">Submit</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -1,37 +1,59 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Welcome to lostNfound
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- home.page.html -->
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Welcome</ion-title>
+      <ion-title>Menu Content</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <!-- Add menu items here -->
+      <!-- For example, you can add links to other pages or additional functionality -->
+      <!-- logout() -->
+      <ion-item> 
+        <ion-label>Logout</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Welcome to lostNfound</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-<ion-list>
-  <div class="listOfItems">
-    <h1></h1>
-    <span [routerLink]="['/tabs/item-details',item.itemid]" *ngFor="let item of items">
-      <ion-card>
-  <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-  <ion-card-header>
-    <ion-card-title>{{item.itemName}}</ion-card-title>
-    <ion-card-subtitle>Lost at {{item.itemLocLost}}</ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    {{item.itemDesc}}
-  </ion-card-content>
-</ion-card>
-    </span>
-    
-  </div>
-</ion-list>
-  
+  <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Welcome</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-</ion-content>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list>
+      <div class="listOfItems">
+        <h1></h1>
+        <!-- Use *ngFor to iterate over the items and create a card for each item -->
+        <span *ngFor="let item of items">
+          <!-- routerLink to navigate to the item details page with the item's ID -->
+          <ion-card [routerLink]="['/tabs/item-details', item.itemid]">
+            <img [src]="item.itemPic || 'https://ionicframework.com/docs/img/demos/card-media.png'" alt="{{item.itemName}}" />
+            <ion-card-header>
+              <ion-card-title>{{item.itemName}}</ion-card-title>
+              <ion-card-subtitle>Lost at {{item.itemLocLost}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              {{item.itemDesc}}
+            </ion-card-content>
+          </ion-card>
+        </span>
+      </div>
+    </ion-list>
+  </ion-content>
+</div>

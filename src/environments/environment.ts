@@ -4,14 +4,6 @@
 
 export const environment = {
   production: false,
-  firebaseConfig: {
-    apiKey: "AIzaSyCZlU7dQxwqd78mkUHduI-qtOS_XvDxlKA",
-    authDomain: "lostandfoundkpmb-da5c1.firebaseapp.com",
-    databaseURL: "https://lostandfoundkpmb-da5c1-default-rtdb.firebaseio.com",
-    projectId: "lostandfoundkpmb-da5c1",
-    storageBucket: "lostandfoundkpmb-da5c1.appspot.com",
-    messagingSenderId: "621264328591"
-  }
 };
 
 /*

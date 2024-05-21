@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-// Import AngularFire modules
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { finalize } from 'rxjs/operators';
+
+export interface imgFile {
+  name: string;
+  filepath: string;
+  size: number;
+}
 
 @Component({
   selector: 'app-report-lost',
@@ -15,53 +20,75 @@ export class ReportLostPage implements OnInit {
     itemid: '',
     itemName: '',
     itemOwner: '',
-    itemLostDate:'',
-    itemDesc:'',
+    itemLostDate: '',
+    itemDesc: '',
     itemFound: null,
-    itemLocLost:'',
-  }
+    itemLocLost: '',
+    itemPic: ''
+  };
+
+  selectedFile: File | null = null;
 
   constructor(
-    private afStorage: AngularFireStorage, // Corrected import
+    private afStorage: AngularFireStorage,
     private firestore: AngularFirestore,
     private router: Router,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
   async registeritem() {
-    // Create a reference to the 'items' collection
-    const itemsCollectionRef = this.firestore.collection('items');
-    
-    // Add the item data to the collection, letting Firestore generate a unique ID
-    const docRef = await itemsCollectionRef.add(this.item);
+    if (this.selectedFile) {
+      const filePath = `lost_items/${Date.now()}_${this.selectedFile.name}`;
+      const fileRef = this.afStorage.ref(filePath);
+      const task = this.afStorage.upload(filePath, this.selectedFile);
 
-    // Retrieve the auto-generated ID from the document reference
-    const autoId = docRef.id;
+      task.snapshotChanges().pipe(
+        finalize(async () => {
+          const downloadURL = await fileRef.getDownloadURL().toPromise();
+          this.item.itemPic = downloadURL;
 
-    // Update the item object with the auto-generated ID
-    this.item.itemid = autoId;
+          // Create a reference to the 'items' collection
+          const itemsCollectionRef = this.firestore.collection('items');
 
-    // Store the updated item data with the auto-generated ID to Firestore
-    await itemsCollectionRef.doc(autoId).set(this.item);
+          // Add the item data to the collection, letting Firestore generate a unique ID
+          const docRef = await itemsCollectionRef.add(this.item);
 
-    // Clear the form
-    this.item = {
-      itemid: '',
-      itemName: '',
-      itemOwner: '',
-      itemLostDate:'',
-      itemDesc:'',
-      itemFound: null,
-      itemLocLost:'',
-    };
+          // Retrieve the auto-generated ID from the document reference
+          const autoId = docRef.id;
 
-    alert("success!");
+          // Update the item object with the auto-generated ID
+          this.item.itemid = autoId;
 
-    this.backTo()
-}
-  backTo(){
+          // Store the updated item data with the auto-generated ID to Firestore
+          await itemsCollectionRef.doc(autoId).set(this.item);
+
+          // Clear the form
+          this.item = {
+            itemid: '',
+            itemName: '',
+            itemOwner: '',
+            itemLostDate: '',
+            itemDesc: '',
+            itemFound: null,
+            itemLocLost: '',
+            itemPic: '',
+          };
+
+          alert("Success!");
+          this.backTo();
+        })
+      ).subscribe();
+    } else {
+      alert("Please select a file to upload.");
+    }
+  }
+
+  backTo() {
     this.router.navigate(['tabs/home']);
   }
 }
